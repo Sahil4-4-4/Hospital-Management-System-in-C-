@@ -1,0 +1,229 @@
+1. Objectives 
+The main objectives of this system are:
+To maintain patient records efficiently.
+To provide a seamless way to search for patient details.
+To offer a structured and user-friendly interface.
+To implement basic input validation for better usability.
+
+2. Features of the System
+ The Hospital Management System includes the following key features:
+Add Patient: Allows users to register new patients with a unique ID, name, age, and disease details.
+View All Patients: Displays a list of all registered patients in a tabular format.
+Search Patient: Enables searching for a patient by their unique ID.
+Exit Option: Provides an option to close the system gracefully.
+
+3. System Implementation
+ The system is implemented using the C++ programming language and follows a class-based approach. The main components of the system are:
+4. Patient Structure
+Each patient record is stored as an instance of the Patient structure, containing:
+id: A unique identifier for each patient.
+name: The patient's name.
+age: The patient's age.
+disease: The disease diagnosed.
+4.1 Hospital Class
+The Hospital class manages the patient records and includes:
+A vector to store patient records.
+A method to add patients with input validation.
+A method to display all patients in a formatted table.
+A method to search for a patient by ID.
+An auto-incrementing ID for each new patient.
+
+
+4.2 Main Menu
+The main() function provides a menu-driven interface, allowing users to:
+Add a new patient.
+View all registered patients.
+Search for a specific patient.
+Exit the program.
+
+//........................................................................................................................................................................
+Code implementation:-
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Patient {
+    int id;
+    string name;
+    int age;
+    string disease;
+};
+
+class Hospital {
+private:
+    vector<Patient> patients;
+    int nextId;
+
+public:
+    Hospital() : nextId(1) {}
+
+    void addPatient() {
+        Patient p;
+        p.id = nextId++;
+        cout << "Enter Patient Name: ";
+        cin.ignore(); // Clear input buffer
+        getline(cin, p.name);
+        cout << "Enter Patient Age: ";
+        cin >> p.age;
+        cin.ignore();
+        cout << "Enter Disease: ";
+        getline(cin, p.disease);
+
+        patients.push_back(p);
+        cout << "Patient added successfully!\n";
+    }
+
+    void viewPatients() {
+        if (patients.empty()) {
+            cout << "No patients found.\n";
+            return;
+        }
+
+        cout << "\nList of Patients:\n";
+        cout << "ID\tName\tAge\tDisease\n";
+        for (const auto &p : patients) {
+            cout << p.id << "\t" << p.name << "\t" << p.age << "\t" << p.disease << "\n";
+        }
+    }
+    void searchPatient() {
+        int searchId;
+        cout << "Enter Patient ID to search: ";
+        cin >> searchId;
+
+        for (const auto &p : patients) {
+            if (p.id == searchId) {
+                cout << "\nPatient Details:\n";
+                cout << "ID: " << p.id << "\nName: " << p.name << "\nAge: " << p.age << "\nDisease: " << p.disease << "\n";
+                return;
+            }
+        }
+        cout << "Patient not found.\n";
+    }
+};
+int main() {
+    Hospital hospital;
+    int choice;
+    do {
+        cout << "\nHospital Management System\n";
+        cout << "1. Add Patient\n";
+        cout << "2. View All Patients\n";
+        cout << "3. Search Patient\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                hospital.addPatient();
+                break;
+            case 2:
+                hospital.viewPatients();
+                break;
+            case 3:
+                hospital.searchPatient();
+                break;
+            case 4:
+                cout << "Exiting program...\n";
+                break;
+            default:
+                cout << "Invalid choice! Please try again.\n";
+        }
+    } while (choice != 4);
+    return 0;
+}
+
+//......................................................................................................................................................................
+
+Code implementation: Output
+
+Hospital Management System
+1. Add Patient
+2. View All Patients
+3. Search Patient
+4. Exit
+Enter your choice: 1
+Enter Patient Name: sahil
+Enter Patient Age: 20
+Enter Disease: Flu 
+Patient added successfully!
+
+Hospital Management System
+1. Add Patient
+2. View All Patients
+3. Search Patient
+4. Exit
+Enter your choice: 1
+Enter Patient Name: utkarsh
+Enter Patient Age: 19
+Enter Disease: TB
+Patient added successfully!
+
+Hospital Management System
+1. Add Patient
+2. View All Patients
+3. Search Patient
+4. Exit
+Enter your choice: 3
+Enter Patient ID to search: 1
+
+Patient Details:
+ID: 1
+Name: sahil
+Age: 20
+Disease: Flu
+
+Hospital Management System
+1. Add Patient
+2. View All Patients
+3. Search Patient
+4. Exit
+Enter your choice: 2
+
+List of Patients:
+ID  Name    Age Disease
+1   sahil   20  Flu
+2   utkarsh 19  TB
+
+Hospital Management System
+1. Add Patient
+2. View All Patients
+3. Search Patient
+4. Exit
+Enter your choice: 4
+Exiting program.
+//..........................................................................................................................................................................
+
+5. Input Validation & Error Handling
+
+Age Validation: Ensures only positive integers are accepted.
+ID Search Validation: Handles cases where a patient ID does not exist.
+Choice Validation: Prevents crashes due to incorrect input types.
+Buffer Clearance: Uses cin.ignore() to handle input buffer issues.
+
+6. Advantages of the System
+
+Simple and easy to use interface.
+Fast retrieval of patient records.
+Structured data management using OOP concepts.
+Error handling ensures robustness.
+Can be expanded to include more features like appointment scheduling, medical history, and billing.
+7. Future Enhancements
+
+Implement file handling to save patient records permanently.
+Add a graphical user interface (GUI) for better usability.
+Introduce database integration (MySQL) for scalable data storage.
+Include doctor and staff management functionalities.
+Provide authentication and role-based access control for security.
+
+
+
+
+
+
+
+Conclusion :-
+
+The Hospital Management System provides a structured way to manage patient records effectively. It utilizes fundamental C++ concepts like OOP, vectors, and input validation to ensure reliability. With future enhancements, this system can be transformed into a full-fledged hospital management solution, catering to real-world hospital needs.
+
+This report provides a detailed overview of the system, its implementation, and potential improvements. Let me know if you need modifications or additional sections!

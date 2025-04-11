@@ -1,0 +1,99 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Patient {
+    int id;
+    string name;
+    int age;
+    string disease;
+};
+
+class Hospital {
+private:
+    vector<Patient> patients;
+    int nextId;
+
+public:
+    Hospital() : nextId(1) {}
+
+    void addPatient() {
+        Patient p;
+        p.id = nextId++;
+        cout << "Enter Patient Name: ";
+        cin.ignore(); // Clear input buffer
+        getline(cin, p.name);
+        cout << "Enter Patient Age: ";
+        cin >> p.age;
+        cin.ignore();
+        cout << "Enter Disease: ";
+        getline(cin, p.disease);
+
+        patients.push_back(p);
+        cout << "Patient added successfully!\n";
+    }
+
+    void viewPatients() {
+        if (patients.empty()) {
+            cout << "No patients found.\n";
+            return;
+        }
+
+        cout << "\nList of Patients:\n";
+        cout << "ID\tName\tAge\tDisease\n";
+        for (const auto &p : patients) {
+            cout << p.id << "\t" << p.name << "\t" << p.age << "\t" << p.disease << "\n";
+        }
+    }
+
+    void searchPatient() {
+        int searchId;
+        cout << "Enter Patient ID to search: ";
+        cin >> searchId;
+
+        for (const auto &p : patients) {
+            if (p.id == searchId) {
+                cout << "\nPatient Details:\n";
+                cout << "ID: " << p.id << "\nName: " << p.name << "\nAge: " << p.age << "\nDisease: " << p.disease << "\n";
+                return;
+            }
+        }
+        cout << "Patient not found.\n";
+    }
+};
+
+int main() {
+    Hospital hospital;
+    int choice;
+
+    do {
+        cout << "\nHospital Management System\n";
+        cout << "1. Add Patient\n";
+        cout << "2. View All Patients\n";
+        cout << "3. Search Patient\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                hospital.addPatient();
+                break;
+            case 2:
+                hospital.viewPatients();
+                break;
+            case 3:
+                hospital.searchPatient();
+                break;
+            case 4:
+                cout << "Exiting program...\n";
+                break;
+            default:
+                cout << "Invalid choice! Please try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
